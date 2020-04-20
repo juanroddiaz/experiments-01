@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -267,14 +267,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _alwaysVisible: 1
-  _fixedPosition: 1
-  _draggable: 0
+  _fixedPosition: 0
+  _draggable: 1
   _analog: 1
   _handleLimit: 0.5
   _deadZone: 0
   _joystickMode: 0
   _background: {fileID: 3468541502254424591}
   _handle: {fileID: 31237920187437285}
+  _verbose: 0
   Drag:
     m_PersistentCalls:
       m_Calls: []

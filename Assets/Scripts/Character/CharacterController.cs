@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private CharacterConfig _config;
+    [SerializeField]
+    private CharacterMovementLogic _mpvementLogic;
+    [SerializeField]
+    private CharacterAnimationLogic _animationLogic;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        // subscribe to joystick
+        // read config
+        // select models
     }
 }

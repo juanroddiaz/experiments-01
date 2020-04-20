@@ -512,6 +512,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudGameplay
       objectReference: {fileID: 0}
+    - target: {fileID: 7036787407092412834, guid: e5374238b59ed8745b114d54009b1d0b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5374238b59ed8745b114d54009b1d0b, type: 3}
 --- !u!1001 &9121046658247262538

@@ -29,6 +29,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     [SerializeField] RectTransform _background;
     [SerializeField] RectTransform _handle;
+    [SerializeField] bool _verbose = false;
 
     public JoystickEvent Drag;
     public JoystickEvent TouchDown;
@@ -112,7 +113,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         _background.gameObject.SetActive(true);
 
         InvokeJoystickEvent(TouchDown);
-        Debug.Log("OnPointerDown: " + eventData.ToString());
+        VerboseLog("OnPointerDown: " + eventData.ToString());
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -160,7 +161,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         }
 
         FinishEvent();
-        Debug.Log("OnPointerUp: " + eventData.ToString());
+        VerboseLog("OnPointerUp: " + eventData.ToString());
     }
 
     private void OnDisable()
@@ -262,6 +263,14 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Debug.Log("Joystick click! Data: " + eventData.ToString());
+        VerboseLog("Joystick click! Data: " + eventData.ToString());
+    }
+
+    private void VerboseLog(string msg)
+    {
+        if (_verbose)
+        {
+            Debug.Log(msg);
+        }
     }
 }
