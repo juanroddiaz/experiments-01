@@ -4,6 +4,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+public class JoystickEventData
+{
+    public JoystickEvent OnDrag;
+    public JoystickEvent OnTouchDown;
+    public JoystickEvent OnTouchUp;
+    public Action OnClick;
+}
+
 public struct JoystickData
 {
     public Vector2 Direction;
@@ -34,6 +42,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     public JoystickEvent Drag;
     public JoystickEvent TouchDown;
     public JoystickEvent TouchUp;
+    public Action Click;
 
     Canvas _canvas;
     Camera _camera;
@@ -93,6 +102,14 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
         _currentPointerId = -1;
         _inputVector = Vector2.zero;
+    }
+
+    public void InitializeEvents(JoystickEventData eventData)
+    {
+        Drag = eventData.OnDrag;
+        TouchDown = eventData.OnTouchDown;
+        TouchUp = eventData.OnTouchUp;
+        Click = eventData.OnClick;
     }
 
     public void OnPointerDown(PointerEventData eventData)

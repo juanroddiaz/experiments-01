@@ -7,7 +7,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private CharacterConfig _config;
     [SerializeField]
-    private CharacterMovementLogic _mpvementLogic;
+    private CharacterMovementLogic _movementLogic;
     [SerializeField]
     private CharacterAnimationLogic _animationLogic;
 
