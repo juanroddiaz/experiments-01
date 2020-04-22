@@ -6,9 +6,9 @@ using UnityEngine.Events;
 
 public class JoystickEventData
 {
-    public JoystickEvent OnDrag;
-    public JoystickEvent OnTouchDown;
-    public JoystickEvent OnTouchUp;
+    public Action<JoystickData> OnDrag;
+    public Action<JoystickData> OnTouchDown;
+    public Action<JoystickData> OnTouchUp;
     public Action OnClick;
 }
 
@@ -17,11 +17,6 @@ public struct JoystickData
     public Vector2 Direction;
     public float Horizontal;
     public float Vertical;
-}
-
-[Serializable]
-public class JoystickEvent : UnityEvent<JoystickData>
-{
 }
 
 [RequireComponent(typeof(Image))]
@@ -39,9 +34,9 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     [SerializeField] RectTransform _handle;
     [SerializeField] bool _verbose = false;
 
-    public JoystickEvent Drag;
-    public JoystickEvent TouchDown;
-    public JoystickEvent TouchUp;
+    public Action<JoystickData> Drag;
+    public Action<JoystickData> TouchDown;
+    public Action<JoystickData> TouchUp;
     public Action Click;
 
     Canvas _canvas;
@@ -262,7 +257,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         return localPoint - (_background.anchorMax * sizeDelta) + pivotOffset + offset;
     }
 
-    void InvokeJoystickEvent(JoystickEvent joystickEvent)
+    void InvokeJoystickEvent(Action<JoystickData> joystickEvent)
     {
         joystickEvent?.Invoke(new JoystickData
         {
