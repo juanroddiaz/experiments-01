@@ -17,6 +17,9 @@ public class CharacterMovementData
 
 public class CharacterMovementLogic : MonoBehaviour
 {
+    [SerializeField]
+    private float _minimumJoystickMagnitude = 0.05f;
+
     private bool _isMoving = false;
     private JoystickLogic _joystick;
     private JoystickData _moveData;
@@ -47,7 +50,6 @@ public class CharacterMovementLogic : MonoBehaviour
     public void OnMoveStart(JoystickData data)
     {
         OnMovementDataReceived(data);
-        _animationLogic.ToggleMovementAnim(true);
     }
 
     public void OnMoveEvent(JoystickData data)
@@ -85,14 +87,18 @@ public class CharacterMovementLogic : MonoBehaviour
 
         if (_isMoving)
         {
-            _orientation.y = Mathf.Atan2(_moveData.Horizontal, _moveData.Vertical) * 180 / Mathf.PI;
-            transform.eulerAngles = _orientation;
+            if (_moveData.Direction.magnitude > _minimumJoystickMagnitude)
+            {
+                _orientation.y = Mathf.Atan2(_moveData.Horizontal, _moveData.Vertical) * 180 / Mathf.PI;
+                transform.eulerAngles = _orientation;
 
-            Vector3 direction = Vector3.zero;
-            direction.x = _moveData.Direction.x;
-            direction.z = _moveData.Direction.y;
+                Vector3 direction = Vector3.zero;
+                direction.x = _moveData.Direction.x;
+                direction.z = _moveData.Direction.y;
 
-            _characterRigidbody.MovePosition(transform.position + direction.normalized * _maxSpeed * Time.fixedDeltaTime);
+                _animationLogic.ToggleMovementAnim(true);
+                _characterRigidbody.MovePosition(transform.position + direction.normalized * _maxSpeed * Time.fixedDeltaTime);
+            }            
         }
 
         _characterRigidbody.velocity = Vector3.zero;

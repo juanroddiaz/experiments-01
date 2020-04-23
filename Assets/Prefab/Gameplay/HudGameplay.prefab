@@ -289,7 +289,6 @@ MonoBehaviour:
   _joystickMode: 0
   _background: {fileID: 3468541502254424591}
   _handle: {fileID: 31237920187437285}
-  _verbose: 0
 --- !u!1 &2534338478072039350
 GameObject:
   m_ObjectHideFlags: 0

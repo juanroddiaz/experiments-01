@@ -17,6 +17,17 @@ public struct JoystickData
     public Vector2 Direction;
     public float Horizontal;
     public float Vertical;
+    public void Reset()
+    {
+        Direction = Vector2.zero;
+        Horizontal = 0.0f;
+        Vertical = 0.0f;
+    }
+
+    public override string ToString()
+    {
+        return "Direction: " + Direction.ToString() + ", Horizontal: " + Horizontal.ToString() + ", Vertical: " + Vertical.ToString();
+    }
 }
 
 [RequireComponent(typeof(Image))]
@@ -32,7 +43,6 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     [SerializeField] RectTransform _background;
     [SerializeField] RectTransform _handle;
-    [SerializeField] bool _verbose = false;
 
     public Action<JoystickData> Drag;
     public Action<JoystickData> TouchDown;
@@ -125,7 +135,6 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         _background.gameObject.SetActive(true);
 
         InvokeJoystickEvent(TouchDown);
-        VerboseLog("OnPointerDown: " + eventData.ToString());
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -173,7 +182,6 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         }
 
         FinishEvent();
-        VerboseLog("OnPointerUp: " + eventData.ToString());
     }
 
     private void OnDisable()
@@ -275,15 +283,6 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        VerboseLog("Joystick click! Data: " + eventData.ToString());
-    }
-
-    private void VerboseLog(string msg)
-    {
-        if (_verbose)
-        {
-            Debug.Log(msg);
-        }
     }
 
     public void DisconnectEvents()
