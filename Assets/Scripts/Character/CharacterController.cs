@@ -27,7 +27,8 @@ public class CharacterController : MonoBehaviour
             MovementMaxSpeed = _config.MovementMaxSpeed,
             OnCanMoveCheck = CheckCanMove,
             JoystickData = new JoystickEventData(),
-            CharacterRigidbody = GetComponent<Rigidbody>()
+            CharacterRigidbody = GetComponent<Rigidbody>(),
+            AnimationLogic = _animationLogic
         };
 
         movementData.JoystickData.OnClick = OnClick;

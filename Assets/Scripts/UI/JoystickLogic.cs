@@ -285,4 +285,12 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
             Debug.Log(msg);
         }
     }
+
+    private void OnDestroy()
+    {
+        Drag = null;
+        TouchDown = null;
+        TouchUp = null;
+        Click = null;
+    }
 }

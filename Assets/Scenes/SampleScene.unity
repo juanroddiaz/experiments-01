@@ -614,45 +614,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1085623571, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1085623571, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.303233
-      objectReference: {fileID: 0}
-    - target: {fileID: 1085623571, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.6618314
-      objectReference: {fileID: 0}
     - target: {fileID: 1085623572, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 984116177}
     - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_SoftZoneWidth
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_DeadZoneWidth
+      propertyPath: m_LookaheadTime
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_SoftZoneHeight
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_DeadZoneHeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_BiasY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_ScreenY
-      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 905817765532560288, guid: 9805c1b644c7b284a98e5444d90f7484,
         type: 3}
@@ -713,21 +681,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 9121046657331276862, guid: 9805c1b644c7b284a98e5444d90f7484,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9121046657331276862, guid: 9805c1b644c7b284a98e5444d90f7484,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.303233
-      objectReference: {fileID: 0}
-    - target: {fileID: 9121046657331276862, guid: 9805c1b644c7b284a98e5444d90f7484,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.6618314
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}

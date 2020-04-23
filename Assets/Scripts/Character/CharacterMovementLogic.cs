@@ -12,6 +12,7 @@ public class CharacterMovementData
     public CanMoveCheck OnCanMoveCheck;
     public JoystickEventData JoystickData;
     public Rigidbody CharacterRigidbody;
+    public CharacterAnimationLogic AnimationLogic;
 }
 
 public class CharacterMovementLogic : MonoBehaviour
@@ -22,6 +23,7 @@ public class CharacterMovementLogic : MonoBehaviour
     private CanMoveCheck _canMoveCheck;
     private float _maxSpeed = 0.0f;
     private Rigidbody _characterRigidbody;
+    private CharacterAnimationLogic _animationLogic;
 
     private Vector3 _orientation = Vector3.zero;
     private bool _initialized = false;
@@ -36,22 +38,24 @@ public class CharacterMovementLogic : MonoBehaviour
         _canMoveCheck = data.OnCanMoveCheck;
         _maxSpeed = data.MovementMaxSpeed;
         _characterRigidbody = data.CharacterRigidbody;
+        _animationLogic = data.AnimationLogic;
         _initialized = true;
     }
 
     public void OnMoveStart(JoystickData data)
     {
-        // check if can move before setting the flag
-        _isMoving = _canMoveCheck.Invoke();
-        if (!_isMoving)
-        {
-            return;
-        }
-        _moveData = data;
+        OnMovementDataReceived(data);
+        _animationLogic.ToggleMovementAnim(true);
     }
 
     public void OnMoveEvent(JoystickData data)
     {
+        OnMovementDataReceived(data);
+    }
+
+    private void OnMovementDataReceived(JoystickData data)
+    {
+        _isMoving = _canMoveCheck.Invoke();
         if (!_isMoving)
         {
             return;
@@ -67,16 +71,12 @@ public class CharacterMovementLogic : MonoBehaviour
     public void StopMoving()
     {
         _isMoving = false;
+        _animationLogic.ToggleMovementAnim(false);
     }
 
     private void FixedUpdate()
     {
         if (!_initialized)
-        {
-            return;
-        }
-
-        if (!_canMoveCheck.Invoke())
         {
             return;
         }
