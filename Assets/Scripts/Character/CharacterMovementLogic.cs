@@ -24,6 +24,7 @@ public class CharacterMovementLogic : MonoBehaviour
     private float _maxSpeed = 0.0f;
     private Rigidbody _characterRigidbody;
     private CharacterAnimationLogic _animationLogic;
+    private Action OnDisconnectEvents = null;
 
     private Vector3 _orientation = Vector3.zero;
     private bool _initialized = false;
@@ -39,6 +40,7 @@ public class CharacterMovementLogic : MonoBehaviour
         _maxSpeed = data.MovementMaxSpeed;
         _characterRigidbody = data.CharacterRigidbody;
         _animationLogic = data.AnimationLogic;
+        OnDisconnectEvents = _joystick.DisconnectEvents;
         _initialized = true;
     }
 
@@ -94,5 +96,10 @@ public class CharacterMovementLogic : MonoBehaviour
         }
 
         _characterRigidbody.velocity = Vector3.zero;
+    }
+
+    private void OnDestroy()
+    {
+        OnDisconnectEvents?.Invoke();
     }
 }

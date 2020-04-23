@@ -78,12 +78,12 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     {
         _alwaysVisible = _fixedPosition || _alwaysVisible;
 
-        if(_touchZone != null)
+        if (_touchZone != null)
         {
             _touchZone.enabled = !_fixedPosition;
         }
 
-        if(_handle != null && _background != null)
+        if (_handle != null && _background != null)
         {
             Vector2 center = new Vector2(0.5f, 0.5f);
             _background.pivot = center;
@@ -109,14 +109,14 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(_currentPointerId >= 0)
+        if (_currentPointerId >= 0)
         {
             return;
         }
 
         _currentPointerId = eventData.pointerId;
 
-        if(!_fixedPosition)
+        if (!_fixedPosition)
         {
             _background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
         }
@@ -130,7 +130,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(_currentPointerId != eventData.pointerId)
+        if (_currentPointerId != eventData.pointerId)
         {
             return;
         }
@@ -141,18 +141,18 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         Vector2 input = (eventData.position - position) / (radius * _canvas.scaleFactor);
         input = ClampJoystick(input, _joystickMode);
 
-        if(_draggable)
+        if (_draggable)
         {
             float inputMagnitude = input.magnitude;
             const float moveThreshold = 1f;
-            if(inputMagnitude > moveThreshold)
+            if (inputMagnitude > moveThreshold)
             {
                 Vector2 difference = input.normalized * (inputMagnitude - moveThreshold) * radius;
                 _background.anchoredPosition += difference;
             }
         }
 
-        if(input.magnitude > 1f)
+        if (input.magnitude > 1f)
         {
             input.Normalize();
         }
@@ -167,7 +167,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(_currentPointerId != eventData.pointerId)
+        if (_currentPointerId != eventData.pointerId)
         {
             return;
         }
@@ -203,11 +203,11 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         float xAxis = 0f;
         float yAxis = 0f;
 
-        switch(mode)
+        switch (mode)
         {
             case Mode.Horizontal:
                 {
-                    if(deadZone < Mathf.Abs(input.x))
+                    if (deadZone < Mathf.Abs(input.x))
                     {
                         xAxis = RemapJoystickAxis(input.x, deadZone);
                     }
@@ -216,7 +216,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
                 }
             case Mode.Vertical:
                 {
-                    if(deadZone < Mathf.Abs(input.y))
+                    if (deadZone < Mathf.Abs(input.y))
                     {
                         yAxis = RemapJoystickAxis(input.y, deadZone);
                     }
@@ -225,7 +225,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
                 }
             case Mode.AllAxes:
                 {
-                    if(deadZone < Mathf.Abs(input.x) || deadZone < Mathf.Abs(input.y))
+                    if (deadZone < Mathf.Abs(input.x) || deadZone < Mathf.Abs(input.y))
                     {
                         xAxis = deadZone < Mathf.Abs(input.x) ? RemapJoystickAxis(input.x, deadZone) : input.x;
                         yAxis = deadZone < Mathf.Abs(input.y) ? RemapJoystickAxis(input.y, deadZone) : input.y;
@@ -242,7 +242,7 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
     {
         Vector2 localPoint;
         var baseRect = _touchZone.rectTransform;
-        if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, _camera, out localPoint))
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, _camera, out localPoint))
         {
             return Vector2.zero;
         }
@@ -286,11 +286,16 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
         }
     }
 
-    private void OnDestroy()
+    public void DisconnectEvents()
     {
         Drag = null;
         TouchDown = null;
         TouchUp = null;
         Click = null;
+    }
+
+    private void OnDestroy()
+    {
+        DisconnectEvents();
     }
 }

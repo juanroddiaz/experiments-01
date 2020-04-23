@@ -120,25 +120,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &237484029 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 396549888305047722, guid: e5374238b59ed8745b114d54009b1d0b,
+--- !u!114 &237484030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 237484030, guid: e5374238b59ed8745b114d54009b1d0b,
     type: 3}
   m_PrefabInstance: {fileID: 7617870130536173558}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &237484030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237484029}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2569366b300eec4ca74adf56380b494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joystick: {fileID: 1545034028}
 --- !u!1 &434704814
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,18 +433,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2022585555105161638}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1545034028 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 416985832407017473, guid: e5374238b59ed8745b114d54009b1d0b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7617870130536173558}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b893993566877bc45851bae7673db12b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2019165305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2246227619722226485, guid: c3dd99f954dfa75409e36f4f1893771c,
@@ -600,11 +581,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudGameplay
       objectReference: {fileID: 0}
-    - target: {fileID: 7036787407092412834, guid: e5374238b59ed8745b114d54009b1d0b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5374238b59ed8745b114d54009b1d0b, type: 3}
 --- !u!1001 &9121046658247262538
@@ -618,10 +594,6 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 984116177}
-    - target: {fileID: 1651658821, guid: 9805c1b644c7b284a98e5444d90f7484, type: 3}
-      propertyPath: m_LookaheadTime
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 905817765532560288, guid: 9805c1b644c7b284a98e5444d90f7484,
         type: 3}
       propertyPath: m_LocalPosition.x
