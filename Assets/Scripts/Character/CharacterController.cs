@@ -12,8 +12,11 @@ public class CharacterController : MonoBehaviour
     private CharacterReachLogic _reachLogic;
     [SerializeField]
     private Transform _modelContainer;
+    [SerializeField]
+    private Transform _podContainer;
 
     private CharacterAnimationLogic _animationLogic;
+    private PodController _podController;
 
     public void Initialize(JoystickLogic joystick)
     {
@@ -33,6 +36,14 @@ public class CharacterController : MonoBehaviour
 
         movementData.JoystickData.OnClick = OnClick;
         _movementLogic.Initialize(movementData);
+
+        var pod = _podContainer.GetChild(0);
+        _podController = pod.GetComponent<PodController>();
+        var podData = new PodControllerData
+        {
+            Owner = transform
+        };
+        _podController.Initialize(podData);
     }
 
     public bool CheckCanMove()

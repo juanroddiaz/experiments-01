@@ -220,7 +220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226879272426895042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 1895075222402086472}
@@ -311,6 +311,7 @@ MonoBehaviour:
   _movementLogic: {fileID: 5220264302525662660}
   _reachLogic: {fileID: 4796385576996260621}
   _modelContainer: {fileID: 4396947811177459869}
+  _podContainer: {fileID: 8662247799609908729}
 --- !u!114 &5220264302525662660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33098922cd6ee34a826f4ddb69820a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _verticalAmplitude: 0.15
+  _verticalFrecuency: 4
 --- !u!1001 &4589548010230891656
 PrefabInstance:
   m_ObjectHideFlags: 0
