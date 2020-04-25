@@ -34,8 +34,7 @@ public class CharacterController : MonoBehaviour
             AnimationLogic = _animationLogic
         };
 
-        movementData.JoystickData.OnClick = OnClick;
-        _movementLogic.Initialize(movementData);
+        _movementLogic.Initialize(this, movementData);
 
         var pod = _podContainer.GetChild(0);
         _podController = pod.GetComponent<PodController>();
@@ -51,7 +50,8 @@ public class CharacterController : MonoBehaviour
         return true;
     }
 
-    private void OnClick()
+    public void OnClickEvent()
     {
+        Debug.Log("OnClick event!");
     }
 }

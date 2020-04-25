@@ -283,6 +283,8 @@ public class JoystickLogic : MonoBehaviour, IDragHandler, IPointerUpHandler, IPo
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        //Debug.Log("OnPointerClick: " + eventData.ToString());
+        Click?.Invoke();
     }
 
     public void DisconnectEvents()
