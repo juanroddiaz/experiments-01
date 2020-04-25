@@ -44,9 +44,7 @@ sysinfo.txt
 /Assets/Plugins/Android/*.jar
 /Assets/Plugins/Android/*.jar.meta
 
-# Artists
-TEMP_*
-TEMP_*.meta
+# Art
 *.psd
 *.psd.meta
 *.PSD
@@ -56,6 +54,3 @@ TEMP_*.meta
 .idea
 Assets/Plugins/Editor/JetBrains
 Assets/Plugins/Editor/JetBrains.meta
-
-/mobilepkganalyze.json
-/SpartaPackages
