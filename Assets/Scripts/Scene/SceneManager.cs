@@ -11,7 +11,22 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        _hud.Initialize();
+        _hud.Initialize(this);
         _character.Initialize(_hud.GetJoystick());
+    }
+
+    public void TogglePause(bool toggle)
+    {
+        // cheap but effective
+        Time.timeScale = toggle ? 0.0f : 1.0f;
+    }
+
+    public void OnQuit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
     }
 }
