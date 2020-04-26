@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CollisionTriggerLogic : MonoBehaviour
 {
-    private Action _onTriggerEnterAction;
-    private Action _onTriggerExitAction;
+    private Action<Transform> _onTriggerEnterAction;
+    private Action<Transform> _onTriggerExitAction;
 
-    public void Initialize(Action action)
+    public void Initialize(Action<Transform> action)
     {
         _onTriggerEnterAction = action;
     }
@@ -16,12 +16,12 @@ public class CollisionTriggerLogic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("On trigger enter: other " + other.name + ", collider: " + gameObject.name);
-        _onTriggerEnterAction?.Invoke();
+        _onTriggerEnterAction?.Invoke(other.transform);
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("On trigger exit: other " + other.name + ", collider: " + gameObject.name);
-        _onTriggerExitAction?.Invoke();
+        _onTriggerExitAction?.Invoke(other.transform);
     }
 }
