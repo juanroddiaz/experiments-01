@@ -3,25 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CollisionTriggerData
+{
+    public Action<Transform> TriggerEnterAction;
+    public Action<Transform> TriggerExitAction;
+}
+
 public class CollisionTriggerLogic : MonoBehaviour
 {
-    private Action<Transform> _onTriggerEnterAction;
-    private Action<Transform> _onTriggerExitAction;
+    private CollisionTriggerData _data;
 
-    public void Initialize(Action<Transform> action)
+    public void Initialize(CollisionTriggerData data)
     {
-        _onTriggerEnterAction = action;
+        _data = data;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("On trigger enter: other " + other.name + ", collider: " + gameObject.name);
-        _onTriggerEnterAction?.Invoke(other.transform);
+        _data.TriggerEnterAction?.Invoke(other.transform);
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("On trigger exit: other " + other.name + ", collider: " + gameObject.name);
-        _onTriggerExitAction?.Invoke(other.transform);
+        _data.TriggerExitAction?.Invoke(other.transform);
     }
 }

@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c7668503b9ca34d8a97f9e0b85ed72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _meleeTrigger: {fileID: 1619260549}
+  _dodgeTrigger: {fileID: 2022585555105161642}
+  _distanceTrigger: {fileID: 2022585555105161641}
 --- !u!1 &806469044
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619260547}
   - component: {fileID: 1619260548}
+  - component: {fileID: 1619260549}
   m_Layer: 9
   m_Name: MeleeCapsule
   m_TagString: Untagged
@@ -194,6 +198,18 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &1619260549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619260546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caacda4f224c5074984e0bc962ba04e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1947167254
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8662247799609908729}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: PodContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,6 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5034697293436206050}
   - component: {fileID: 7027976289416957061}
+  - component: {fileID: 2022585555105161641}
   m_Layer: 11
   m_Name: DistanceAttackCapsule
   m_TagString: Untagged
@@ -351,6 +368,18 @@ CapsuleCollider:
   m_Height: 9
   m_Direction: 1
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &2022585555105161641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981882289007320657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caacda4f224c5074984e0bc962ba04e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2022585554927438454
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6088998617968065017}
   - component: {fileID: 1267651327177443103}
+  - component: {fileID: 2022585555105161642}
   m_Layer: 10
   m_Name: DodgeCapsule
   m_TagString: Untagged
@@ -493,20 +523,18 @@ CapsuleCollider:
   m_Height: 7
   m_Direction: 1
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!114 &527764463904245741
+--- !u!114 &2022585555105161642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8404574937981437576}
+  m_GameObject: {fileID: 6536079275523176647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33098922cd6ee34a826f4ddb69820a4, type: 3}
+  m_Script: {fileID: 11500000, guid: caacda4f224c5074984e0bc962ba04e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalAmplitude: 0.15
-  _verticalFrecuency: 4
 --- !u!1001 &4589548010230891656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -651,12 +679,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c53bce4814bd3f4bb9f764f3a9e5b75, type: 3}
---- !u!1 &8404574937981437576 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3649226018266319059, guid: 2c53bce4814bd3f4bb9f764f3a9e5b75,
-    type: 3}
-  m_PrefabInstance: {fileID: 5046190863930642011}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1895075222402086472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6650412595096582163, guid: 2c53bce4814bd3f4bb9f764f3a9e5b75,

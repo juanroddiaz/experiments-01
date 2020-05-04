@@ -15,9 +15,14 @@ public class PodController : MonoBehaviour
     [SerializeField]
     private float _verticalFrecuency = 1.0f;
     [Header("X/Z Movement")]
+    [SerializeField]
     private float _angleSpeed = 10.0f;
+    [Header("Orientation")]
+    [SerializeField]
+    private float _orientationSpeed = 45.0f;
 
     private Transform _ownerTransform;
+    private Transform _target;
     private Vector3 _initialPosition = Vector3.zero;
     private Vector3 _calculatedPosition = Vector3.zero;
     private bool _initialized = false;
@@ -38,11 +43,20 @@ public class PodController : MonoBehaviour
 
         CalculateVerticalMovement();
         CalculateHorizontalMovement();
-        transform.position = _ownerTransform.position + _initialPosition + _calculatedPosition;
+        transform.position = _calculatedPosition + _ownerTransform.position + _initialPosition;
+
+        UpdateOrientation();
     }
 
-    public void Attack()
+    public void Attack(Transform target)
     {
+        _target = target;
+    }
+
+    public void OutOfRange(Transform target)
+    {
+        // todo: list of targets
+        _target = null;
     }
 
     private void CalculateVerticalMovement()
@@ -62,5 +76,24 @@ public class PodController : MonoBehaviour
         yAxisAngle *= Mathf.Deg2Rad;
         _calculatedPosition.x = Mathf.Cos(yAxisAngle) * 1.5f;
         _calculatedPosition.z = Mathf.Sin(yAxisAngle) * 1.5f;
+    }
+
+    private void UpdateOrientation()
+    {
+        Quaternion lookRotation = Quaternion.identity;
+        bool hasTarget = _target != null;
+        if (hasTarget)
+        {
+            Vector3 direction = (_target.position - transform.position).normalized;
+            lookRotation = Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            lookRotation = Quaternion.LookRotation(_ownerTransform.forward.normalized);
+
+        }
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                lookRotation, _orientationSpeed * Time.deltaTime);
     }
 }

@@ -43,6 +43,23 @@ public class CharacterController : MonoBehaviour
             Owner = transform
         };
         _podController.Initialize(podData);
+
+
+        var reachData = new CharacterReachData
+        {
+            OnMeeleTrigger = new CollisionTriggerData
+            {
+            },
+            OnDodgeTrigger = new CollisionTriggerData
+            {
+            },
+            OnDistanceTrigger = new CollisionTriggerData
+            {
+                TriggerEnterAction = OnDistanceRangeEnter,
+                TriggerExitAction = OnDistanceRangeExit
+            }
+        };
+        _reachLogic.Initialize(reachData);
     }
 
     public bool CheckCanMove()
@@ -53,5 +70,37 @@ public class CharacterController : MonoBehaviour
     public void OnClickEvent()
     {
         Debug.Log("OnClick event!");
+    }
+
+    public void OnMeleeRangeEnter(Transform t)
+    {
+        Debug.Log("Melee enter!");
+    }
+
+    public void OnMeleeRangeExit(Transform t)
+    {
+        Debug.Log("Melee exit!");
+    }
+
+    public void OnDodgeRangeEnter(Transform t)
+    {
+        Debug.Log("Dodge enter!");
+    }
+
+    public void OnDodgeRangeExit(Transform t)
+    {
+        Debug.Log("Dodge exit!");
+    }
+
+    public void OnDistanceRangeEnter(Transform t)
+    {
+        Debug.Log("Distance enter!");
+        _podController.Attack(t);
+    }
+
+    public void OnDistanceRangeExit(Transform t)
+    {
+        Debug.Log("Distance exit!");
+        _podController.OutOfRange(t);
     }
 }

@@ -17,12 +17,12 @@ TagManager:
   - MeleeReach
   - DodgeReach
   - DistanceAttackReach
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Destroyable
+  - Object
+  - Pod
+  - PlayerMissile
+  - EnemyMissile
   - 
   - 
   - 
