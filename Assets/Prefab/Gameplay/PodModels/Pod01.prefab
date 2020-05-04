@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 6650412595096582163}
   - component: {fileID: 6042345406444840651}
   - component: {fileID: 9128179124165427840}
+  - component: {fileID: 777143498234139773}
   m_Layer: 15
   m_Name: Pod01
   m_TagString: Untagged
@@ -200,8 +201,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _verticalAmplitude: 0.15
   _verticalFrecuency: 4
+  _radius: 2
   _angleSpeed: 10
   _orientationSpeed: 90
+  _attackFovLogic: {fileID: 777143498234139773}
+  _missileObj: {fileID: 1213529451062198, guid: ff03a364db9ac51458058ef167cf0f37,
+    type: 3}
+--- !u!114 &777143498234139773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649226018266319059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6ca0d7ad41cbb4da5edd66a3a91335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sightAngle: 10
 --- !u!1 &4958903990677155833
 GameObject:
   m_ObjectHideFlags: 0

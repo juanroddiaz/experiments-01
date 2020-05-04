@@ -16,10 +16,17 @@ public class PodController : MonoBehaviour
     private float _verticalFrecuency = 1.0f;
     [Header("X/Z Movement")]
     [SerializeField]
+    private float _radius = 2.0f;
+    [SerializeField]
     private float _angleSpeed = 10.0f;
     [Header("Orientation")]
     [SerializeField]
     private float _orientationSpeed = 45.0f;
+    [Header("Attack")]
+    [SerializeField]
+    private FieldOfViewSight _attackFovLogic;
+    [SerializeField]
+    private GameObject _missileObj;
 
     private Transform _ownerTransform;
     private Transform _target;
@@ -46,17 +53,25 @@ public class PodController : MonoBehaviour
         transform.position = _calculatedPosition + _ownerTransform.position + _initialPosition;
 
         UpdateOrientation();
+        if (_attackFovLogic.CheckTargetOnSight())
+        {
+            // missile to target
+            Vector3 direction = _target.position - transform.position;
+            Instantiate(_missileObj, transform.position, transform.rotation);
+        }
     }
 
     public void Attack(Transform target)
     {
         _target = target;
+        _attackFovLogic.UpdateTarget(target);
     }
 
     public void OutOfRange(Transform target)
     {
         // todo: list of targets
         _target = null;
+        _attackFovLogic.UpdateTarget();
     }
 
     private void CalculateVerticalMovement()
@@ -74,8 +89,8 @@ public class PodController : MonoBehaviour
         }
         yAxisAngle += 180.0f;
         yAxisAngle *= Mathf.Deg2Rad;
-        _calculatedPosition.x = Mathf.Cos(yAxisAngle) * 1.5f;
-        _calculatedPosition.z = Mathf.Sin(yAxisAngle) * 1.5f;
+        _calculatedPosition.x = Mathf.Cos(yAxisAngle) * _radius;
+        _calculatedPosition.z = Mathf.Sin(yAxisAngle) * _radius;
     }
 
     private void UpdateOrientation()
