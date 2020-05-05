@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   DefaultModelIdx: 0
-  ReachMelee: 1
-  ReachDodge: 1.5
-  ReachDistanceAttack: 4
+  ReachMelee: 1.25
+  ReachDodge: 2
+  ReachDistanceAttack: 4.5
+  MovementMaxSpeed: 5

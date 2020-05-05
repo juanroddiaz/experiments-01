@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 5220264302525662660}
   - component: {fileID: 8451452702237899809}
   - component: {fileID: 5964790653453509236}
+  - component: {fileID: 1569850622255106960}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -116,6 +117,7 @@ MonoBehaviour:
   _reachLogic: {fileID: 4796385576996260621}
   _modelContainer: {fileID: 4396947811177459869}
   _podContainer: {fileID: 8662247799609908729}
+  _meleeFovLogic: {fileID: 1569850622255106960}
 --- !u!114 &5220264302525662660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +161,19 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &1569850622255106960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022585554927438454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6ca0d7ad41cbb4da5edd66a3a91335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sightAngle: 60
 --- !u!1001 &4589548010230891656
 PrefabInstance:
   m_ObjectHideFlags: 0
