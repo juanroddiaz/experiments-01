@@ -5777,11 +5777,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 4083187432330890459, guid: c3dd99f954dfa75409e36f4f1893771c,
-        type: 3}
-      propertyPath: _orientationSpeed
-      value: 720
-      objectReference: {fileID: 0}
     - target: {fileID: 4320640940145774658, guid: c3dd99f954dfa75409e36f4f1893771c,
         type: 3}
       propertyPath: m_Layer
