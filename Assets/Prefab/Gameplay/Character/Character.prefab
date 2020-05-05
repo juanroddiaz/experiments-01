@@ -306,11 +306,6 @@ PrefabInstance:
       propertyPath: _angleSpeed
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 9128179124165427840, guid: 2c53bce4814bd3f4bb9f764f3a9e5b75,
-        type: 3}
-      propertyPath: _orientationSpeed
-      value: 360
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c53bce4814bd3f4bb9f764f3a9e5b75, type: 3}
 --- !u!4 &1895075222402086472 stripped

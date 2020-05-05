@@ -202,8 +202,8 @@ MonoBehaviour:
   _verticalAmplitude: 0.15
   _verticalFrecuency: 4
   _radius: 2
-  _angleSpeed: 10
-  _orientationSpeed: 90
+  _angleLerpSpeed: 0.1
+  _orientationSpeed: 720
   _attackFovLogic: {fileID: 777143498234139773}
   _missileObj: {fileID: 1213529451062198, guid: ff03a364db9ac51458058ef167cf0f37,
     type: 3}
