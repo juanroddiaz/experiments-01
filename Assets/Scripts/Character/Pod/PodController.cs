@@ -50,7 +50,7 @@ public class PodController : MonoBehaviour
 
         CalculateVerticalMovement();
         CalculateHorizontalMovement();
-        transform.position = _calculatedPosition + _ownerTransform.position + _initialPosition;
+        transform.position = _calculatedPosition;
 
         UpdateOrientation();
         if (_attackFovLogic.CheckTargetOnSight())
@@ -77,6 +77,7 @@ public class PodController : MonoBehaviour
     private void CalculateVerticalMovement()
     {
         _calculatedPosition.y = Mathf.Sin(Time.time * _verticalFrecuency) * _verticalAmplitude;
+        _calculatedPosition.y = _ownerTransform.position.y + _initialPosition.y;
     }
 
     private void CalculateHorizontalMovement()
@@ -89,8 +90,8 @@ public class PodController : MonoBehaviour
         }
         yAxisAngle += 180.0f;
         yAxisAngle *= Mathf.Deg2Rad;
-        _calculatedPosition.x = Mathf.Cos(yAxisAngle) * _radius;
-        _calculatedPosition.z = Mathf.Sin(yAxisAngle) * _radius;
+        _calculatedPosition.x = Mathf.Cos(yAxisAngle) * _radius + _ownerTransform.position.x;
+        _calculatedPosition.z = Mathf.Sin(yAxisAngle) * _radius + _ownerTransform.position.z;
     }
 
     private void UpdateOrientation()
@@ -110,5 +111,14 @@ public class PodController : MonoBehaviour
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation,
                 lookRotation, _orientationSpeed * Time.deltaTime);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        if (_calculatedPosition != Vector3.zero)
+        {
+            Gizmos.DrawCube(_calculatedPosition, Vector3.one * 0.5f);
+        }
     }
 }
