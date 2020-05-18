@@ -73,6 +73,7 @@ public class CharacterController : MonoBehaviour
         if (_meleeFovLogic.CheckTargetOnSight())
         {
             Debug.Log("HIT!! " + _meleeTarget.name);
+            _animationLogic.TogglePunchAnim(true);
         }
     }
 
@@ -99,6 +100,7 @@ public class CharacterController : MonoBehaviour
         // todo: list of targets
         _meleeTarget = null;
         _meleeFovLogic.UpdateTarget();
+        _animationLogic.TogglePunchAnim(false);
     }
 
     public void OnDodgeRangeEnter(Transform t)
