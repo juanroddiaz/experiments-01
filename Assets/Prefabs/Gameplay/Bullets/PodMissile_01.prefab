@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4971097015990966}
   - component: {fileID: 198277538348117068}
-  - component: {fileID: 114729273772597000}
   - component: {fileID: 54723350441956278}
   - component: {fileID: 199509227785772348}
   - component: {fileID: 135521883611116180}
   - component: {fileID: 108212708603584814}
+  - component: {fileID: 6784183441092037402}
   m_Layer: 16
   m_Name: PodMissile_01
   m_TagString: Untagged
@@ -4753,26 +4753,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &114729273772597000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213529451062198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 605a456cfc02f6b499a64717539a27e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 25
-  hitOffset: 0.1
-  UseFirePointRotation: 1
-  rotationOffset: {x: 0, y: 0, z: 0}
-  hit: {fileID: 1242051555635342, guid: dfcc89b7a52994043bed0bb34fd4e644, type: 3}
-  flash: {fileID: 1762171864188014, guid: 76156b965dc1d344086b24bbbb313b15, type: 3}
-  Detached:
-  - {fileID: 1828698928921012}
 --- !u!54 &54723350441956278
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4925,6 +4905,26 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &6784183441092037402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213529451062198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4dbd1feaeaa8a4c9aa6c9b0465fe5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 25
+  hitOffset: 0.1
+  UseFirePointRotation: 1
+  rotationOffset: {x: 0, y: 0, z: 0}
+  hit: {fileID: 1242051555635342, guid: dfcc89b7a52994043bed0bb34fd4e644, type: 3}
+  flash: {fileID: 1762171864188014, guid: 76156b965dc1d344086b24bbbb313b15, type: 3}
+  Detached:
+  - {fileID: 1828698928921012}
 --- !u!1 &1267732140592724
 GameObject:
   m_ObjectHideFlags: 0

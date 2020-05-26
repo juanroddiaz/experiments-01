@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileLogic : MonoBehaviour
+public class ProjectileLogic : MonoBehaviour, IPooleableObject
 {
     public float speed = 15f;
     public float hitOffset = 0f;
@@ -10,12 +10,23 @@ public class ProjectileLogic : MonoBehaviour
     public Vector3 rotationOffset = new Vector3(0, 0, 0);
     public GameObject hit;
     public GameObject flash;
-    private Rigidbody rb;
     public GameObject[] Detached;
 
-    void Start()
+    private Rigidbody _rb;
+    private ObjectPoolController _pool;
+
+    void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    public void SetPool(ObjectPoolController pool)
+    {
+        _pool = pool;
+    }
+
+    public void OnSpawn()
+    {
         if (flash != null)
         {
             var flashInstance = Instantiate(flash, transform.position, Quaternion.identity);
@@ -38,7 +49,7 @@ public class ProjectileLogic : MonoBehaviour
     {
 		if (speed != 0)
         {
-            rb.velocity = transform.forward * speed;
+            _rb.velocity = transform.forward * speed;
             //transform.position += transform.forward * (speed * Time.deltaTime);         
         }
 	}
@@ -47,7 +58,7 @@ public class ProjectileLogic : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Lock all axes movement and rotation
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        _rb.constraints = RigidbodyConstraints.FreezeAll;
         speed = 0;
 
         ContactPoint contact = collision.contacts[0];
@@ -80,5 +91,10 @@ public class ProjectileLogic : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    public void OnRecycle()
+    {
+        _pool.Recycle(gameObject);
     }
 }
