@@ -35,6 +35,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     public void OnSpawn()
     {
+        Debug.Log(gameObject.name + " Spawned!");
         _currentDistance = 0.0f;
         if (flash != null)
         {
@@ -55,24 +56,17 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     void FixedUpdate ()
     {
-		if (_speed != 0)
+        _rb.velocity = transform.forward * _speed;
+        _currentDistance += _rb.velocity.magnitude * Time.fixedDeltaTime;
+        if (_currentDistance >= _maxDistance)
         {
-            _rb.velocity = transform.forward * _speed;
-            _currentDistance += _rb.velocity.magnitude * Time.fixedDeltaTime;
-            if (_currentDistance >= _maxDistance)
-            {
-                _pool.Recycle(gameObject);
-            }
-            //transform.position += transform.forward * (speed * Time.deltaTime);         
+            _pool.Recycle(gameObject);
         }
+        //transform.position += transform.forward * (speed * Time.deltaTime);         
 	}
 
     void OnCollisionEnter(Collision collision)
     {
-        //Lock all axes movement and rotation
-        _rb.constraints = RigidbodyConstraints.FreezeAll;
-        _speed = 0;
-
         ContactPoint contact = collision.contacts[0];
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
         Vector3 pos = contact.point + contact.normal * _hitOffset;
@@ -95,6 +89,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
                 Destroy(hitInstance, hitPsParts.main.duration);
             }
         }
+
         foreach (var detachedPrefab in Detached)
         {
             if (detachedPrefab != null)
@@ -102,11 +97,13 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
                 detachedPrefab.transform.parent = null;
             }
         }
+
         _pool.Recycle(gameObject);
     }
 
     public void OnAfterRecycle()
     {
+        Debug.Log(gameObject.name + " Recycled!");
         // post recycle method
     }
 }

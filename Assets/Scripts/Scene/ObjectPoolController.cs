@@ -36,16 +36,25 @@ public class ObjectPoolGroup
 
     public void ReturnInstance(GameObject obj)
     {
-        var entry = PooledInstances[obj.GetInstanceID()];
-        if (entry == null)
+        ObjectPoolInstance entry = null;
+        if (PooledInstances.TryGetValue(obj.GetInstanceID(), out entry))
         {
-            Debug.LogError("No instance found for " + obj.name);
+            entry.IsUsed = false;
+            entry.Instance.SetActive(false);
+            entry.PooleableInstance.OnAfterRecycle();
+            ResetTransform(entry.Instance.transform);
             return;
         }
-        entry.IsUsed = false;
-        entry.Instance.SetActive(false);
-        entry.PooleableInstance.OnAfterRecycle();
-        return;
+
+        Debug.LogError("No instance found for " + obj.name);
+    }
+
+    private void ResetTransform(Transform transform)
+    {
+        transform.SetParent(Parent, false);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = PrefabObject.transform.localScale;
     }
 }
 
@@ -85,8 +94,9 @@ public class ObjectPoolController : MonoBehaviour
 
     private ObjectPoolInstance CreateInstanceInGroup(ObjectPoolGroup group)
     {
-        var go = Instantiate(group.PrefabObject, transform, true);
+        var go = Instantiate(group.PrefabObject, transform, false);
         go.SetActive(false);
+        go.name += "_" + group.PooledInstances.Count;
         go.transform.parent = group.Parent;
         var iPooleable = go.GetComponent(typeof(IPooleableObject)) as IPooleableObject;
         iPooleable.SetPool(this);
@@ -104,14 +114,16 @@ public class ObjectPoolController : MonoBehaviour
     public GameObject Spawn(GameObject prefabObject, Vector3 position, Quaternion rotation)
     {
         var group = _poolGroup.Find(g => g.PrefabObject.name == prefabObject.name);
-        ObjectPoolInstance instance = null;
-        if(group != null)
+        if (group == null)
         {
-            instance = group.GetUnusedInstance();
-            if (instance == null)
-            {
-                instance = CreateInstanceInGroup(group);
-            }
+            Debug.LogError("Group not found! Name: " + prefabObject.name);
+            return null;
+        }
+
+        ObjectPoolInstance instance = group.GetUnusedInstance();
+        if (instance == null)
+        {
+            instance = CreateInstanceInGroup(group);
         }
 
         instance.Instance.SetActive(true);
@@ -124,7 +136,7 @@ public class ObjectPoolController : MonoBehaviour
     public void Recycle(GameObject obj)
     {
         var name = obj.name;
-        if (name.EndsWith(_cloneSuffix))
+        if (name.Contains(_cloneSuffix))
         {
             name = name.Substring(0, name.LastIndexOf(_cloneSuffix));
         }
