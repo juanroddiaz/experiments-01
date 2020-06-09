@@ -58,21 +58,21 @@ public class PodController : MonoBehaviour
         UpdateOrientation();
         if (_attackFovLogic.CheckTargetOnSight())
         {
-            _shootingLogic.TryAttack();
+            _shootingLogic.TryAttack(_attackFovLogic.Target);
         }
     }
 
     public void Attack(Transform target)
     {
         _target = target;
-        _attackFovLogic.UpdateTarget(target);
+        _attackFovLogic.Target = target;
     }
 
     public void OutOfRange(Transform target)
     {
         // todo: list of targets
         _target = null;
-        _attackFovLogic.UpdateTarget();
+        _attackFovLogic.Target = null;
     }
 
     private void CalculateVerticalMovement()

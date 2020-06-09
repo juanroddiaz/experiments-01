@@ -91,7 +91,7 @@ public class CharacterController : MonoBehaviour
     {
         //Debug.Log("Melee enter!");
         _meleeTarget = t;
-        _meleeFovLogic.UpdateTarget(t);
+        _meleeFovLogic.Target = t;
     }
 
     public void OnMeleeRangeExit(Transform t)
@@ -99,7 +99,7 @@ public class CharacterController : MonoBehaviour
         //Debug.Log("Melee exit!");
         // todo: list of targets
         _meleeTarget = null;
-        _meleeFovLogic.UpdateTarget();
+        _meleeFovLogic.Target = null;
         _animationLogic.TogglePunchAnim(false);
     }
 

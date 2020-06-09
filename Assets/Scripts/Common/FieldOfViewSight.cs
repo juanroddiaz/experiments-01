@@ -7,22 +7,17 @@ public class FieldOfViewSight : MonoBehaviour
     [SerializeField]
     private float _sightAngle = 10.0f;
 
-    private Transform _target = null;
-
-    public void UpdateTarget(Transform newTarget = null)
-    {
-        _target = newTarget;
-    }
+    public Transform Target;
 
     // Update is called once per frame
     public bool CheckTargetOnSight()
     {
-        if (_target == null)
+        if (Target == null)
         {
             return false;
         }
 
-        float angle = Vector3.Angle(_target.position - transform.position, transform.forward);
+        float angle = Vector3.Angle(Target.position - transform.position, transform.forward);
         //Debug.Log("angle: " + angle.ToString());
         if (angle >= _sightAngle)
         {

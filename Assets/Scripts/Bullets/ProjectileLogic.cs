@@ -40,7 +40,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
         if (flash != null)
         {
             var flashInstance = Instantiate(flash, transform.position, Quaternion.identity);
-            flashInstance.transform.forward = gameObject.transform.forward;
+            flashInstance.transform.forward = transform.forward;
             var flashPs = flashInstance.GetComponent<ParticleSystem>();
             if (flashPs != null)
             {
@@ -56,8 +56,10 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     void FixedUpdate ()
     {
-        _rb.velocity = transform.forward * _speed;
-        _currentDistance += _rb.velocity.magnitude * Time.fixedDeltaTime;
+        float step = _speed * Time.fixedDeltaTime;
+        Vector3 nextPosition = transform.position + transform.forward * step;
+        _rb.MovePosition(nextPosition);
+        _currentDistance += step;
         if (_currentDistance >= _maxDistance)
         {
             _pool.Recycle(gameObject);

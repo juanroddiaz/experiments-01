@@ -19,13 +19,14 @@ public class ShootingLogic : MonoBehaviour
         _readyToAttack = true;
     }
 
-    public void TryAttack()
+    public void TryAttack(Transform target)
     {
         if (_readyToAttack)
         {
             _fireCooldown = 0.0f;
             _readyToAttack = false;
-            ObjectPoolController.Instance.Spawn(_missileObj, transform.position, transform.rotation);
+            var go = ObjectPoolController.Instance.Spawn(_missileObj, transform.position, transform.rotation);
+            go.transform.LookAt(target);
         }
     }
 
