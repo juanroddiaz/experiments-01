@@ -25,7 +25,7 @@ public class ShootingLogic : MonoBehaviour
         {
             _fireCooldown = 0.0f;
             _readyToAttack = false;
-            Instantiate(_missileObj, transform.position, transform.rotation);
+            ObjectPoolController.Instance.Spawn(_missileObj, transform.position, transform.rotation);
         }
     }
 

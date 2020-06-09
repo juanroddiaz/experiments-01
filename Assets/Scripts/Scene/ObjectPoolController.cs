@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,11 +20,12 @@ public class ObjectPoolInstance
 public class ObjectPoolGroup
 {
     public GameObject PrefabObject;
-    public List<ObjectPoolInstance> PooledInstances;
+    public Dictionary<int, ObjectPoolInstance> PooledInstances;
+    public Transform Parent;
 
     public ObjectPoolInstance GetUnusedInstance()
     {
-        var entry = PooledInstances.Find(i => !i.IsUsed);
+        var entry = PooledInstances.Values.ToList().Find(i => !i.IsUsed);
         if (entry == null)
         {
             return null;
@@ -34,14 +36,15 @@ public class ObjectPoolGroup
 
     public void ReturnInstance(GameObject obj)
     {
-        var entry = PooledInstances.Find(o => o.IsUsed && o.Instance == obj);
+        var entry = PooledInstances[obj.GetInstanceID()];
         if (entry == null)
         {
+            Debug.LogError("No instance found for " + obj.name);
             return;
         }
         entry.IsUsed = false;
         entry.Instance.SetActive(false);
-        entry.PooleableInstance.OnRecycle();
+        entry.PooleableInstance.OnAfterRecycle();
         return;
     }
 }
@@ -52,16 +55,23 @@ public class ObjectPoolController : MonoBehaviour
     private List<ObjectPoolEntry> _poolEntries;
 
     private List<ObjectPoolGroup> _poolGroup;
+    private static string _cloneSuffix = "(Clone)";
+
+    public static ObjectPoolController Instance { get; private set; }
 
     private void Awake()
     {
+        Instance = this;
         _poolGroup = new List<ObjectPoolGroup>();
         foreach(var e in _poolEntries)
         {
+            var groupContainer = new GameObject(e.PrefabObject.name);
+            groupContainer.transform.parent = transform;
             var group = new ObjectPoolGroup
             {
                 PrefabObject = e.PrefabObject,
-                PooledInstances = new List<ObjectPoolInstance>()
+                PooledInstances = new Dictionary<int, ObjectPoolInstance>(),
+                Parent = groupContainer.transform
             };
 
             for (int i = 0; i < e.PrefabDefaultInstances; i++)
@@ -77,6 +87,7 @@ public class ObjectPoolController : MonoBehaviour
     {
         var go = Instantiate(group.PrefabObject, transform, true);
         go.SetActive(false);
+        go.transform.parent = group.Parent;
         var iPooleable = go.GetComponent(typeof(IPooleableObject)) as IPooleableObject;
         iPooleable.SetPool(this);
         var instance = new ObjectPoolInstance
@@ -86,11 +97,11 @@ public class ObjectPoolController : MonoBehaviour
             PooleableInstance = iPooleable
         };
 
-        group.PooledInstances.Add(instance);
+        group.PooledInstances[instance.Instance.GetInstanceID()] = instance;
         return instance;
     }
 
-    public GameObject Spawn(GameObject prefabObject)
+    public GameObject Spawn(GameObject prefabObject, Vector3 position, Quaternion rotation)
     {
         var group = _poolGroup.Find(g => g.PrefabObject.name == prefabObject.name);
         ObjectPoolInstance instance = null;
@@ -103,17 +114,28 @@ public class ObjectPoolController : MonoBehaviour
             }
         }
 
-        instance.PooleableInstance.OnSpawn();
         instance.Instance.SetActive(true);
+        instance.Instance.transform.position = position;
+        instance.Instance.transform.rotation = rotation;
+        instance.PooleableInstance.OnSpawn();
         return instance.Instance;
     }
 
     public void Recycle(GameObject obj)
     {
-        var group = _poolGroup.Find(g => g.PrefabObject.name == obj.name);
+        var name = obj.name;
+        if (name.EndsWith(_cloneSuffix))
+        {
+            name = name.Substring(0, name.LastIndexOf(_cloneSuffix));
+        }
+
+        var group = _poolGroup.Find(g => g.PrefabObject.name == name);
         if (group != null)
         {
             group.ReturnInstance(obj);
+            return;
         }
+
+        Debug.LogError("Trying to recycle " + name + " and group not found!");
     }
 }

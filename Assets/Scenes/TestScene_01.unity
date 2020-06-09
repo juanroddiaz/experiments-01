@@ -962,6 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 2019165305}
   _hud: {fileID: 237484030}
+  _pool: {fileID: 0}
 --- !u!4 &434704816
 Transform:
   m_ObjectHideFlags: 0
@@ -3086,7 +3087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolEntries:
-  - PrefabDefaultInstances: 5
+  - PrefabDefaultInstances: 10
     PrefabObject: {fileID: 1213529451062198, guid: ff03a364db9ac51458058ef167cf0f37,
       type: 3}
 --- !u!1001 &1178524489

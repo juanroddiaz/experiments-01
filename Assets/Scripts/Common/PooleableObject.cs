@@ -6,5 +6,5 @@ public interface IPooleableObject
 {
     void SetPool(ObjectPoolController pool);
     void OnSpawn();
-    void OnRecycle();
+    void OnAfterRecycle();
 }

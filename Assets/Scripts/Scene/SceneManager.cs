@@ -8,8 +8,6 @@ public class SceneManager : MonoBehaviour
     private CharacterController _character;
     [SerializeField]
     private HudGameplayController _hud;
-    [SerializeField]
-    private ObjectPoolController _pool;
 
     private void Awake()
     {

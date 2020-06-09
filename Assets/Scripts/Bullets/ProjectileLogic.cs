@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class ProjectileLogic : MonoBehaviour, IPooleableObject
 {
-    public float speed = 15f;
-    public float hitOffset = 0f;
-    public bool UseFirePointRotation;
-    public Vector3 rotationOffset = new Vector3(0, 0, 0);
+    [SerializeField]
+    private float _speed = 15f;
+    [SerializeField]
+    private float _maxDistance = 15f;
+    [SerializeField]
+    private float _hitOffset = 0f;
+    [SerializeField]
+    private bool _useFirePointRotation;
+    [SerializeField]
+    private Vector3 _rotationOffset = new Vector3(0, 0, 0);
+
     public GameObject hit;
     public GameObject flash;
     public GameObject[] Detached;
 
     private Rigidbody _rb;
     private ObjectPoolController _pool;
+    private float _currentDistance = 0.0f;
 
     void Awake()
     {
@@ -27,6 +35,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     public void OnSpawn()
     {
+        _currentDistance = 0.0f;
         if (flash != null)
         {
             var flashInstance = Instantiate(flash, transform.position, Quaternion.identity);
@@ -41,35 +50,38 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
                 var flashPsParts = flashInstance.transform.GetChild(0).GetComponent<ParticleSystem>();
                 Destroy(flashInstance, flashPsParts.main.duration);
             }
-        }
-        Destroy(gameObject,5);
+        }        
 	}
 
     void FixedUpdate ()
     {
-		if (speed != 0)
+		if (_speed != 0)
         {
-            _rb.velocity = transform.forward * speed;
+            _rb.velocity = transform.forward * _speed;
+            _currentDistance += _rb.velocity.magnitude * Time.fixedDeltaTime;
+            if (_currentDistance >= _maxDistance)
+            {
+                _pool.Recycle(gameObject);
+            }
             //transform.position += transform.forward * (speed * Time.deltaTime);         
         }
 	}
 
-    //https ://docs.unity3d.com/ScriptReference/Rigidbody.OnCollisionEnter.html
     void OnCollisionEnter(Collision collision)
     {
         //Lock all axes movement and rotation
         _rb.constraints = RigidbodyConstraints.FreezeAll;
-        speed = 0;
+        _speed = 0;
 
         ContactPoint contact = collision.contacts[0];
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-        Vector3 pos = contact.point + contact.normal * hitOffset;
+        Vector3 pos = contact.point + contact.normal * _hitOffset;
 
         if (hit != null)
         {
             var hitInstance = Instantiate(hit, pos, rot);
-            if (UseFirePointRotation) { hitInstance.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
-            else if (rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(rotationOffset); }
+            if (_useFirePointRotation) { hitInstance.transform.rotation = gameObject.transform.rotation * Quaternion.Euler(0, 180f, 0); }
+            else if (_rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(_rotationOffset); }
             else { hitInstance.transform.LookAt(contact.point + contact.normal); }
 
             var hitPs = hitInstance.GetComponent<ParticleSystem>();
@@ -90,11 +102,11 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
                 detachedPrefab.transform.parent = null;
             }
         }
-        Destroy(gameObject);
+        _pool.Recycle(gameObject);
     }
 
-    public void OnRecycle()
+    public void OnAfterRecycle()
     {
-        _pool.Recycle(gameObject);
+        // post recycle method
     }
 }
