@@ -30,9 +30,10 @@ public class CharacterMovementLogic : MonoBehaviour
 
     private CharacterController _controller;
     private Vector3 _orientation = Vector3.zero;
-    private bool _isMoving = false;
     private bool _hasMoved = false;
     private bool _initialized = false;
+
+    public bool IsMoving = false;
 
     public void Initialize(CharacterController controller, CharacterMovementData data)
     {
@@ -65,10 +66,14 @@ public class CharacterMovementLogic : MonoBehaviour
 
     private void OnMovementDataReceived(JoystickData data)
     {
-        _isMoving = _canMoveCheck.Invoke() && (data.Direction.magnitude > _minimumJoystickMagnitude);
-        if (!_isMoving)
+        IsMoving = _canMoveCheck.Invoke() && (data.Direction.magnitude > _minimumJoystickMagnitude);
+        if (!IsMoving)
         {
             return;
+        }
+        if (!_hasMoved)
+        {
+            _controller.OnStartMoving();
         }
         _hasMoved = true;
         _moveData = data;
@@ -81,13 +86,14 @@ public class CharacterMovementLogic : MonoBehaviour
 
     public void StopMoving()
     {
-        _isMoving = false;
+        IsMoving = false;
         _animationLogic.ToggleMovementAnim(false);
+        _controller.OnStopMoving();
     }
 
     private void OnClick()
     {
-        if (_isMoving || _hasMoved)
+        if (IsMoving || _hasMoved)
         {
             return;
         }
@@ -102,7 +108,7 @@ public class CharacterMovementLogic : MonoBehaviour
             return;
         }
 
-        if (_isMoving)
+        if (IsMoving)
         {
             _orientation.y = Mathf.Atan2(_moveData.Horizontal, _moveData.Vertical) * 180 / Mathf.PI;
             transform.eulerAngles = _orientation;

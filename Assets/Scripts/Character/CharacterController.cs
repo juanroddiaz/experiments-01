@@ -20,8 +20,6 @@ public class CharacterController : MonoBehaviour
     private CharacterAnimationLogic _animationLogic;
     private PodController _podController;
 
-    private Transform _meleeTarget = null;
-
     public void Initialize(JoystickLogic joystick)
     {
         var model = _modelContainer.GetChild(0);
@@ -70,12 +68,32 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
+        if (_movementLogic.IsMoving)
+        {
+            return;
+        }
+
         if (_meleeFovLogic.CheckTargetOnSight())
         {
-            Debug.Log("HIT!! " + _meleeTarget.name);
+            Debug.Log("HIT!! " + _meleeFovLogic.Target.name);
             _animationLogic.TogglePunchAnim(true);
         }
     }
+
+    public void OnStartMoving()
+    {
+        _animationLogic.TogglePunchAnim(false);
+    }
+
+    public void OnStopMoving()
+    {
+        if (_meleeFovLogic.CheckTargetOnSight())
+        {
+            var lookAt = _meleeFovLogic.Target.position;
+            lookAt.y = transform.position.y;
+            transform.LookAt(lookAt);
+        }
+    }    
 
     public bool CheckCanMove()
     {
@@ -90,7 +108,10 @@ public class CharacterController : MonoBehaviour
     public void OnMeleeRangeEnter(Transform t)
     {
         //Debug.Log("Melee enter!");
-        _meleeTarget = t;
+        // todo: list of targets
+        var lookAt = t.position;
+        lookAt.y = transform.position.y;
+        transform.LookAt(lookAt);
         _meleeFovLogic.Target = t;
     }
 
@@ -98,7 +119,6 @@ public class CharacterController : MonoBehaviour
     {
         //Debug.Log("Melee exit!");
         // todo: list of targets
-        _meleeTarget = null;
         _meleeFovLogic.Target = null;
         _animationLogic.TogglePunchAnim(false);
     }

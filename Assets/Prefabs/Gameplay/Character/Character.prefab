@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minimumJoystickMagnitude: 0.05
+  IsMoving: 0
 --- !u!54 &8451452702237899809
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -173,7 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6ca0d7ad41cbb4da5edd66a3a91335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sightAngle: 60
+  _sightAngle: 180
+  Target: {fileID: 0}
 --- !u!1001 &4589548010230891656
 PrefabInstance:
   m_ObjectHideFlags: 0
