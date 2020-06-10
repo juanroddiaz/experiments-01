@@ -12,21 +12,29 @@ public class CollisionTriggerData
 public class CollisionTriggerLogic : MonoBehaviour
 {
     private CollisionTriggerData _data;
+    private bool _initialized = false;
 
     public void Initialize(CollisionTriggerData data)
     {
         _data = data;
+        _initialized = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("On trigger enter: other " + other.name + ", collider: " + gameObject.name);
-        _data.TriggerEnterAction?.Invoke(other.transform);
+        if (_initialized)
+        {
+            _data.TriggerEnterAction?.Invoke(other.transform);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("On trigger exit: other " + other.name + ", collider: " + gameObject.name);
-        _data.TriggerExitAction?.Invoke(other.transform);
+        if (_initialized)
+        {
+            _data.TriggerExitAction?.Invoke(other.transform);
+        }
     }
 }

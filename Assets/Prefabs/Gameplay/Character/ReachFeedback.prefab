@@ -216,8 +216,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _meleeTrigger: {fileID: 5831584649791455033}
+  _meleeProjector: {fileID: 5831584650136134052}
   _dodgeTrigger: {fileID: 5547407312988301846}
+  _dodgeProjector: {fileID: 5831584651558216358}
   _distanceTrigger: {fileID: 5547407312988301845}
+  _distanceProjector: {fileID: 5831584651141117450}
 --- !u!1 &5831584651141117448
 GameObject:
   m_ObjectHideFlags: 0

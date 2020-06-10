@@ -11,11 +11,11 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private CharacterReachLogic _reachLogic;
     [SerializeField]
+    private CharacterAttackLogic _attackLogic;
+    [SerializeField]
     private Transform _modelContainer;
     [SerializeField]
     private Transform _podContainer;
-    [SerializeField]
-    private FieldOfViewSight _meleeFovLogic;
 
     private CharacterAnimationLogic _animationLogic;
     private PodController _podController;
@@ -64,6 +64,12 @@ public class CharacterController : MonoBehaviour
             }
         };
         _reachLogic.Initialize(reachData);
+
+        var attackData = new CharacterAttackData
+        {
+            AnimationLogic = _animationLogic
+        };
+        _attackLogic.Initialize(attackData);
     }
 
     private void Update()
@@ -73,27 +79,26 @@ public class CharacterController : MonoBehaviour
             return;
         }
 
-        if (_meleeFovLogic.CheckTargetOnSight())
+        if (!_attackLogic.IsAttacking)
         {
-            Debug.Log("HIT!! " + _meleeFovLogic.Target.name);
-            _animationLogic.TogglePunchAnim(true);
-        }
+            _attackLogic.TryToMeleeAttack();
+        }        
     }
 
     public void OnStartMoving()
     {
-        _animationLogic.TogglePunchAnim(false);
+        _attackLogic.StopAllAttacks();
     }
 
     public void OnStopMoving()
     {
-        if (_meleeFovLogic.CheckTargetOnSight())
-        {
-            var lookAt = _meleeFovLogic.Target.position;
+        if (_attackLogic.TryToMeleeAttack())
+        {        
+            var lookAt = _attackLogic.GetCurrentTarget().position;
             lookAt.y = transform.position.y;
             transform.LookAt(lookAt);
         }
-    }    
+    }
 
     public bool CheckCanMove()
     {
@@ -112,15 +117,14 @@ public class CharacterController : MonoBehaviour
         var lookAt = t.position;
         lookAt.y = transform.position.y;
         transform.LookAt(lookAt);
-        _meleeFovLogic.Target = t;
+        _attackLogic.SetAttackTarget(CharacterAttackType.Melee, t);
     }
 
     public void OnMeleeRangeExit(Transform t)
     {
         //Debug.Log("Melee exit!");
         // todo: list of targets
-        _meleeFovLogic.Target = null;
-        _animationLogic.TogglePunchAnim(false);
+        _attackLogic.StopAttack(CharacterAttackType.Melee);
     }
 
     public void OnDodgeRangeEnter(Transform t)

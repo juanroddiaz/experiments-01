@@ -35,7 +35,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     public void OnSpawn()
     {
-        Debug.Log(gameObject.name + " Spawned!");
+        //Debug.Log(gameObject.name + " Spawned!");
         _currentDistance = 0.0f;
         if (flash != null)
         {
@@ -105,7 +105,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     public void OnAfterRecycle()
     {
-        Debug.Log(gameObject.name + " Recycled!");
         // post recycle method
+        // Debug.Log(gameObject.name + " Recycled!");
     }
 }
