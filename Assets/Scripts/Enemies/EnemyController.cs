@@ -7,10 +7,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private GameplayTextLogic _countdownLabel;
     [SerializeField]
+    private CombatFlyingTextLogic  _combatNumber;
+    [SerializeField]
     private float _attackTimer = 3.0f;
 
     private GameplayTextLogic _currentCountdownLabel;
     private EnemyManager _manager;
+    private bool _combatNumberDirectionToggle;
 
     public void Initialize(EnemyManager manager)
     {
@@ -31,9 +34,20 @@ public class EnemyController : MonoBehaviour
             countDown -= Time.deltaTime;
             if (countDown <= 0.0f)
             {
+                SpawnCombatNumber("BOOM", CombatMessageType.Normal);
                 countDown += _attackTimer;
             }
             yield return null;
         }
+    }
+
+    private void SpawnCombatNumber(string value, CombatMessageType type)
+    {
+        GameObject combatNumberObj = ObjectPoolController.Instance.Spawn(_combatNumber.gameObject, Vector3.zero, Quaternion.identity);
+        _manager.AddToGameplayUI(combatNumberObj.transform);
+        var combatNumberLogic = combatNumberObj.GetComponent<CombatFlyingTextLogic>();
+        float clipLength = combatNumberLogic.Initialize(value, transform, type, _combatNumberDirectionToggle);
+        _combatNumberDirectionToggle = !_combatNumberDirectionToggle;
+        ObjectPoolController.Instance.RecycleAfter(combatNumberObj, clipLength);
     }
 }

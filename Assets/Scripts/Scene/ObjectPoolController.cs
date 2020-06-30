@@ -49,6 +49,18 @@ public class ObjectPoolGroup
         Debug.LogError("No instance found for " + obj.name);
     }
 
+    public bool IsSpawned(GameObject obj)
+    {
+        ObjectPoolInstance entry = null;
+        if (PooledInstances.TryGetValue(obj.GetInstanceID(), out entry))
+        {
+            return entry.IsUsed;
+        }
+
+        Debug.LogError("No instance found for " + obj.name);
+        return false;
+    }
+
     private void ResetTransform(Transform transform)
     {
         transform.SetParent(Parent, false);
@@ -99,6 +111,12 @@ public class ObjectPoolController : MonoBehaviour
         go.name += "_" + group.PooledInstances.Count;
         go.transform.parent = group.Parent;
         var iPooleable = go.GetComponent(typeof(IPooleableObject)) as IPooleableObject;
+        if (iPooleable == null)
+        {
+            Debug.LogError("IPooleableObject interface not found in " + go.name);
+            return null;
+        }
+
         iPooleable.SetPool(this);
         var instance = new ObjectPoolInstance
         {
@@ -149,5 +167,23 @@ public class ObjectPoolController : MonoBehaviour
         }
 
         Debug.LogError("Trying to recycle " + name + " and group not found!");
+    }
+
+    public void RecycleAfter(GameObject obj, float delayTime)
+    {
+        Instance.StartCoroutine(RecycleCoroutine(obj, delayTime));
+    }
+
+    private IEnumerator RecycleCoroutine(GameObject obj, float delayTime = 0f)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        Recycle(obj);
+    }
+
+    public bool IsSpawned(GameObject obj)
+    {
+        var pool = _poolGroup.Find(g => g.PrefabObject.name == obj.name);
+        return pool != null && pool.IsSpawned(obj);
     }
 }

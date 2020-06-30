@@ -3090,6 +3090,9 @@ MonoBehaviour:
   - PrefabDefaultInstances: 10
     PrefabObject: {fileID: 1213529451062198, guid: ff03a364db9ac51458058ef167cf0f37,
       type: 3}
+  - PrefabDefaultInstances: 5
+    PrefabObject: {fileID: 2411530353634678857, guid: 3b727f6139d1a44478bd3374aca99f9c,
+      type: 3}
 --- !u!1001 &1178524489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3605,6 +3608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _countdownLabel: {fileID: 5259359061719420106, guid: 89009bcc9d8792c428c015d7c40ad443,
+    type: 3}
+  _combatNumber: {fileID: 3365215148369562033, guid: 3b727f6139d1a44478bd3374aca99f9c,
     type: 3}
   _attackTimer: 3
 --- !u!54 &1390103608

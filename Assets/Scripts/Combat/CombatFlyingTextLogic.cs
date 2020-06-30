@@ -25,7 +25,7 @@ public class CombatMessageColors
     public Sprite Icon;
 }
 
-public class CombatFloatingNumberLogic : MonoBehaviour
+public class CombatFlyingTextLogic : MonoBehaviour, IPooleableObject
 {
     [SerializeField] private TextMeshProUGUI _valueTxt;
     [SerializeField] private Animation _animation;
@@ -35,8 +35,9 @@ public class CombatFloatingNumberLogic : MonoBehaviour
     [SerializeField] private List<CombatMessageColors> _messageColorConfig;
 
     private List<string> _animNames = new List<string>();
+    private Transform _targetTransform;
 
-    public float Initialize(string value, CombatMessageType type, float angle, bool toTheRight)
+    public float Initialize(string value, Transform target, CombatMessageType type, bool toTheRight)
     {
         if(_animNames.Count == 0)
         {
@@ -52,13 +53,10 @@ public class CombatFloatingNumberLogic : MonoBehaviour
             return 0.0f;
         }
 
-        _icon.gameObject.SetActive(false);
-//         Vector2 offset = GetComponent<InGameGUIControl>()._offsetOnGUI;
-//         float dist = offset.magnitude;
-//         offset.x = Mathf.Cos(angle) * dist;
-//         offset.y = Mathf.Sin(angle) * dist;
-//         GetComponent<InGameGUIControl>()._offsetOnGUI = offset;
+        _targetTransform = target;
+        UpdatePosition();
 
+        _icon.gameObject.SetActive(false);
         _valueTxt.text = value;
         _valueTxt.color = _messageColorConfig[(int)type].MessageColor;
         int animIdx = -1;
@@ -82,5 +80,26 @@ public class CombatFloatingNumberLogic : MonoBehaviour
         _animation.Play(_animNames[animIdx]);
 
         return _animation.GetClip(_animNames[animIdx]).length;
+    }
+
+    private void UpdatePosition()
+    {
+        transform.position = Camera.main.WorldToScreenPoint(_targetTransform.position);
+    }
+
+    void Update()
+    {
+        UpdatePosition();
+    }
+
+    public void OnSpawn()
+    { }
+
+    public void SetPool(ObjectPoolController pool)
+    {
+    }
+
+    public void OnAfterRecycle()
+    {
     }
 }
