@@ -8,11 +8,16 @@ public class SceneManager : MonoBehaviour
     private CharacterController _character;
     [SerializeField]
     private HudGameplayController _hud;
+    [SerializeField]
+    private EnemyManager _enemyManager;
+
+    public HudGameplayController Hud => _hud;
 
     private void Awake()
     {
         _hud.Initialize(this);
         _character.Initialize(_hud.GetJoystick());
+        _enemyManager.Initialize(this);
     }
 
     public void TogglePause(bool toggle)

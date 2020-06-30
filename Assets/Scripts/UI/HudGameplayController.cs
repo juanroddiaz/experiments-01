@@ -12,6 +12,8 @@ public class HudGameplayController : MonoBehaviour
     private GameObject _controlsPanel;
     [SerializeField]
     private GameObject _pausePanel;
+    [SerializeField]
+    private GameObject _gameplayPanel;
 
     private SceneManager _sceneManager;
 
@@ -43,5 +45,11 @@ public class HudGameplayController : MonoBehaviour
     public void OnQuitGame()
     {
         _sceneManager.OnQuit();
+    }
+
+    public void AddToGameplayUI(Transform t)
+    {
+        t.SetParent(_gameplayPanel.transform);
+        t.localScale = Vector3.one;
     }
 }
