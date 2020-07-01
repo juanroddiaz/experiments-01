@@ -93,7 +93,8 @@ public class CombatFlyingTextLogic : MonoBehaviour, IPooleableObject
     }
 
     public void OnSpawn()
-    { }
+    {
+    }
 
     public void SetPool(ObjectPoolController pool)
     {

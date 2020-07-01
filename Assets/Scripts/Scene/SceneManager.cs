@@ -10,8 +10,11 @@ public class SceneManager : MonoBehaviour
     private HudGameplayController _hud;
     [SerializeField]
     private EnemyManager _enemyManager;
+    [SerializeField]
+    private CameraShakeController _cameraShake;
 
     public HudGameplayController Hud => _hud;
+    public CameraShakeController CameraShake => _cameraShake;
 
     private void Awake()
     {

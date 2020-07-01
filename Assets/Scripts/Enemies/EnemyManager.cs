@@ -18,6 +18,11 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public CameraShakeController GetCameraShakeController()
+    {
+        return _sceneManager.CameraShake;
+    }
+
     public void AddToGameplayUI(Transform t)
     {
         _sceneManager.Hud.AddToGameplayUI(t);

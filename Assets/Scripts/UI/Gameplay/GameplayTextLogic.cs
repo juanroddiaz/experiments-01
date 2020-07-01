@@ -11,16 +11,22 @@ public class GameplayTextLogic : MonoBehaviour
     private Vector3 _localPositionOffset;
 
     private Transform _targetTransform;
+    private bool _hasText = false;
 
     public void Initialize(Transform target)
     {
         _targetTransform = target;
+        _hasText = _text != null;
         UpdatePosition();
     }
 
     public void UpdateValue(float value)
     {
-        _text.text = value.ToString("0.0");
+        if (_hasText)
+        {
+            _text.text = value.ToString("0.0");
+        }
+        
         if (_anchoredToTarget)
         {
             UpdatePosition();
