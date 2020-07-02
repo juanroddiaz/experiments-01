@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface IPooleableObject
 {
-    void SetPool(ObjectPoolController pool);
     void OnSpawn();
     void OnAfterRecycle();
 }

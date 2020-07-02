@@ -117,7 +117,6 @@ public class ObjectPoolController : MonoBehaviour
             return null;
         }
 
-        iPooleable.SetPool(this);
         var instance = new ObjectPoolInstance
         {
             IsUsed = false,

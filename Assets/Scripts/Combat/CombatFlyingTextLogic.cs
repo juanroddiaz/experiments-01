@@ -96,10 +96,6 @@ public class CombatFlyingTextLogic : MonoBehaviour, IPooleableObject
     {
     }
 
-    public void SetPool(ObjectPoolController pool)
-    {
-    }
-
     public void OnAfterRecycle()
     {
     }

@@ -12,6 +12,8 @@ public class SceneManager : MonoBehaviour
     private EnemyManager _enemyManager;
     [SerializeField]
     private CameraShakeController _cameraShake;
+    [SerializeField]
+    private ChronosTimeManager _timeManager;
 
     public HudGameplayController Hud => _hud;
     public CameraShakeController CameraShake => _cameraShake;

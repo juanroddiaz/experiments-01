@@ -20,17 +20,11 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
     public GameObject[] Detached;
 
     private Rigidbody _rb;
-    private ObjectPoolController _pool;
     private float _currentDistance = 0.0f;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-    }
-
-    public void SetPool(ObjectPoolController pool)
-    {
-        _pool = pool;
     }
 
     public void OnSpawn()
@@ -62,7 +56,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
         _currentDistance += step;
         if (_currentDistance >= _maxDistance)
         {
-            _pool.Recycle(gameObject);
+            ObjectPoolController.Instance.Recycle(gameObject);
         }
         //transform.position += transform.forward * (speed * Time.deltaTime);         
 	}
@@ -100,7 +94,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
             }
         }
 
-        _pool.Recycle(gameObject);
+        ObjectPoolController.Instance.Recycle(gameObject);
     }
 
     public void OnAfterRecycle()
