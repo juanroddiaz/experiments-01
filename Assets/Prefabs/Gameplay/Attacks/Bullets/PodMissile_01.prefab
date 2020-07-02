@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 135521883611116180}
   - component: {fileID: 108212708603584814}
   - component: {fileID: 6784183441092037402}
+  - component: {fileID: 1870704174840621333}
   m_Layer: 16
   m_Name: PodMissile_01
   m_TagString: Untagged
@@ -4926,6 +4927,23 @@ MonoBehaviour:
   hit: {fileID: 1242051555635342, guid: dfcc89b7a52994043bed0bb34fd4e644, type: 3}
   flash: {fileID: 1762171864188014, guid: 76156b965dc1d344086b24bbbb313b15, type: 3}
   Detached: []
+--- !u!114 &1870704174840621333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213529451062198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
+  _mode: 1
+  _globalClockKey: Root
+  _rewindable: 0
+  _recordingDuration: 30
 --- !u!1 &2700009770521718512
 GameObject:
   m_ObjectHideFlags: 0

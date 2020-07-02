@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileLogic : MonoBehaviour, IPooleableObject
+public class ProjectileLogic : ChronosTimelineBehaviour, IPooleableObject
 {
     [SerializeField]
     private float _speed = 15f;
@@ -50,7 +50,7 @@ public class ProjectileLogic : MonoBehaviour, IPooleableObject
 
     void FixedUpdate ()
     {
-        float step = _speed * Time.fixedDeltaTime;
+        float step = _speed * ChronosTime.fixedDeltaTime;
         Vector3 nextPosition = transform.position + transform.forward * step;
         _rb.MovePosition(nextPosition);
         _currentDistance += step;

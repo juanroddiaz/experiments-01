@@ -15,8 +15,8 @@ public class CharacterMovementData
     public CharacterAnimationLogic AnimationLogic;
 }
 
-public class CharacterMovementLogic : MonoBehaviour
-{
+public class CharacterMovementLogic : ChronosTimelineBehaviour
+{ 
     [SerializeField]
     private float _minimumJoystickMagnitude = 0.05f;
 
@@ -118,7 +118,7 @@ public class CharacterMovementLogic : MonoBehaviour
             direction.z = _moveData.Direction.y;
 
             _animationLogic.ToggleMovementAnim(true);
-            _characterRigidbody.MovePosition(transform.position + direction.normalized * _maxSpeed * Time.fixedDeltaTime);
+            _characterRigidbody.MovePosition(transform.position + direction.normalized * _maxSpeed * ChronosTime.fixedDeltaTime);
         }
 
         _characterRigidbody.velocity = Vector3.zero;

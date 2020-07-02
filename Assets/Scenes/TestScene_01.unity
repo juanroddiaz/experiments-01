@@ -3674,6 +3674,8 @@ MonoBehaviour:
   _combatNumber: {fileID: 3365215148369562033, guid: 3b727f6139d1a44478bd3374aca99f9c,
     type: 3}
   _attackTimer: 3
+  _timeSphere: {fileID: 4383754670513670681, guid: 2542262e297583c419703f86758c8c1a,
+    type: 3}
 --- !u!54 &1390103608
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3737,7 +3739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0144e3ad8a88947298e2dca62625e6ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localTimeScale: 0.2
+  _localTimeScale: 0.05
   _paused: 0
   _parentKey: Root
   _parentBlend: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 
-public class ShootingLogic : MonoBehaviour
+public class ShootingLogic : ChronosTimelineBehaviour
 {
     [SerializeField]
     private GameObject _missileObj;
@@ -39,7 +39,7 @@ public class ShootingLogic : MonoBehaviour
 
         if (_fireCooldown < _fireRatio)
         {
-            _fireCooldown += Time.deltaTime;
+            _fireCooldown += ChronosTime.deltaTime;
             if (_fireCooldown >= _fireRatio)
             {
                 _readyToAttack = true;

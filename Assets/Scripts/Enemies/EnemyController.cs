@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     private CombatFlyingTextLogic  _combatNumber;
     [SerializeField]
     private float _attackTimer = 3.0f;
+    [SerializeField]
+    private TimeAreaLogic _timeSphere;
 
     private GameplayTextLogic _currentCountdownLabel;
     private EnemyManager _manager;
@@ -34,7 +36,10 @@ public class EnemyController : MonoBehaviour
             countDown -= Time.deltaTime;
             if (countDown <= 0.0f)
             {
-                SpawnCombatNumber("BOOM", CombatMessageType.Normal);
+                SpawnCombatNumber("TIME SPHERE", CombatMessageType.Normal);
+                Vector3 timeSpherePos = transform.position;
+                timeSpherePos.y = 0.0f;
+                var timeSphere = ObjectPoolController.Instance.Spawn(_timeSphere.gameObject, timeSpherePos, Quaternion.identity);
                 countDown += _attackTimer;
             }
             yield return null;
