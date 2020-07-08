@@ -2,6 +2,8 @@
 
 THIS IS A MVP DOCUMENT - FOR POTENTIAL MOBILE GAMEPLAY AS FOR TECHNOLOGY I WOULD LIKE TO IMPLEMENT. 
 
+![First Glimpse](/Images/experimento1_01.gif)
+
 * This one will be portrait, with Input -> joystick movement, releasing and as a button
 * Gameplay must convince the player to want more power and different ways to beat the levels, but not necessarily implement all progression at once.
 * RPG progression must be easy to implement (Diablo 3 / fusion) and generous, BUT it can be an abstract layer for the game.
